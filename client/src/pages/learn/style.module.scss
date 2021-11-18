@@ -1,0 +1,41 @@
+.journeys {
+  border: 1px solid blue;
+  margin-top: 4%;
+
+  .title {
+    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    p {
+      text-align: center;
+      font-family: Work Sans;
+      font-weight: 300;
+      font-size: 36px;
+    }
+  }
+}
+
+.level {
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  p {
+    width: 40%;
+    font-family: Work Sans;
+    font-weight: normal;
+    font-size: 24px;
+  }
+
+  .badges {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 1px solid blue;
+  }
+}
+
+.stats {
+}

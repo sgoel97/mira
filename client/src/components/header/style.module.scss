@@ -1,0 +1,30 @@
+.container {
+}
+
+.title {
+  padding: 0;
+
+  h2 {
+    font-family: Work Sans;
+    font-size: 3rem;
+    font-weight: normal;
+  }
+
+  h6 {
+    font-size: 1.5rem;
+    font-weight: normal;
+
+    margin-top: 0.5rem;
+  }
+}
+
+.icons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  img {
+    margin-left: 1.5rem;
+    height: 40px;
+  }
+}

@@ -5,6 +5,7 @@ import Sidebar from "../../components/sidebar";
 import Dashboard from "../dashboard";
 import Subportfolios from "../subportfolios";
 import Learn from "../learn";
+import Quiz from "../quiz";
 import Bots from "../bots";
 import Account from "../account";
 
@@ -25,9 +26,14 @@ const App = () => {
             <Route path="/subportfolios">
               <Subportfolios />
             </Route>
-            <Route path="/learn">
+
+            <Route exact path="/learn">
               <Learn />
             </Route>
+            <Route path="/learn">
+              <Quiz />
+            </Route>
+
             <Route path="/bots">
               <Bots />
             </Route>

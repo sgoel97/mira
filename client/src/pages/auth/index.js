@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import Form from "react-bootstrap/form";
 import Button from "react-bootstrap/button";
 
@@ -30,7 +32,9 @@ const Auth = () => {
           </a>
         </div>
 
-        <Button className={styles["submit"]}>Login</Button>
+        <Link to="/">
+          <Button className={styles["submit"]}>Login</Button>
+        </Link>
       </Form>
     </div>
   );
