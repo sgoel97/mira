@@ -1,5 +1,7 @@
 import Landing from "./pages/landing";
-import Auth from "./pages/auth";
+import Login from "./pages/auth/login";
+import Register from "./pages/auth/register";
+import Reset from "./pages/auth/reset";
 import Dashboard from "./pages/app";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -10,12 +12,23 @@ function App() {
   return (
     <Router>
       <Switch>
+        {/* Landing Page */}
         <Route path="/app">
           <Landing />
         </Route>
+
+        {/* Auth */}
         <Route path="/login">
-          <Auth />
+          <Login />
         </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/reset">
+          <Reset />
+        </Route>
+
+        {/* Web App */}
         <Route path="/">
           <Dashboard />
         </Route>

@@ -1,27 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { Link } from "react-router-dom";
+
+import { auth } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import Gear from "./img/Gear.png";
-import Bell from "./img/Bell.png";
 import Account from "./img/Account.png";
 
 import styles from "./style.module.scss";
 
 const Chart = ({ title, subtitle }) => {
+  const [user, loading, error] = useAuthState(auth);
+
+  const Letter = () => {
+    const letter = user.displayName
+      ? user.displayName.charAt(0)
+      : user.email.charAt(0);
+
+    return (
+      <div>
+        <p>{letter}</p>
+      </div>
+    );
+  };
+
   return (
-    <Container fluid className={styles["container"]}>
+    <Container fluid>
       <Row>
         <Col xs={9} className={styles["title"]}>
           <h2>{title}</h2>
           {subtitle && <h6>{subtitle}</h6>}
         </Col>
         <Col xs={3} className={styles["icons"]}>
-          <img src={Gear} alt="settings" />
-          <img src={Bell} alt="notifications" />
-          <img src={Account} alt="account" />
+          <Link to="/account" className={styles["photo-link"]}>
+            {user && user.photoURL ? (
+              <img
+                src={user.photoURL}
+                alt="Account"
+                className={styles["photo"]}
+              />
+            ) : (
+              <Letter />
+            )}
+          </Link>
         </Col>
       </Row>
     </Container>

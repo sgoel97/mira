@@ -6,9 +6,9 @@ import Account from "./img/Account.png";
 
 const pages = [
   { image: Dashboard, title: "Dashboard", link: "/" },
-  { image: Wallet, title: "Your Subportfolios", link: "/subportfolios" },
+  // { image: Wallet, title: "Your Subportfolios", link: "/subportfolios" },
   { image: Message, title: "Learn", link: "/learn" },
-  { image: Trade, title: "Your Bots", link: "/bots" },
+  { image: Trade, title: "Trade", link: "/trade" },
   { image: Account, title: "Account", link: "/account" },
 ];
 

@@ -17,22 +17,37 @@
   }
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.auth-form {
+  width: 25vw;
 }
 
-.forgot {
-  margin-left: 2rem;
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.link {
   text-decoration: none;
   color: #20df7f;
   cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover {
+    color: darken(#20df7f, 5%);
+  }
 }
 
-.submit {
-  margin-top: 1.2rem;
-  width: 100%;
-  background: #c77dff;
+.button {
+  margin-top: 0.5rem;
+  margin-bottom: 0.7rem;
+  width: 80%;
+  margin: 0.5rem 10% 0.7rem 10%;
+  background: #c77dff !important;
   border: none;
+
+  &:hover {
+    background: darken(#c77dff, 5%) !important;
+  }
 }

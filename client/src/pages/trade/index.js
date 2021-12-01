@@ -8,13 +8,13 @@ import Col from "react-bootstrap/Col";
 
 import styles from "./style.module.scss";
 
-const Subportfolios = () => {
+const Trade = () => {
   return (
-    <Container fluid style={{ border: "1px solid black" }}>
-      <Header title="Subportfolios" />
+    <Container fluid>
+      <Header title="Trade" />
       <Row></Row>
     </Container>
   );
 };
 
-export default Subportfolios;
+export default Trade;

@@ -10,11 +10,19 @@ import Col from "react-bootstrap/Col";
 import styles from "./style.module.scss";
 
 const Learn = () => {
+  const localLeaderboardData = [
+    { name: "Jen Garcia", level: "15" },
+    { name: "Juan Rosales", level: "15" },
+    { name: "Ani Vangala", level: "15" },
+  ];
+
+  const globalLeaderboardData = [];
+
   return (
-    <Container fluid style={{ border: "1px solid black" }}>
+    <Container fluid>
       <Header title="Learn" />
       <Row>
-        <Col xs={7} className={styles["journeys"]}>
+        <Col xs={12} className={styles["journeys"]}>
           <Row className={styles["title"]}>
             <p>Lessons</p>
           </Row>
@@ -42,7 +50,18 @@ const Learn = () => {
             </div>
           </Row>
         </Col>
-        <Col xs={5} className={styles["stats"]}></Col>
+        {/* <Col xs={4} className={styles["stats"]}>
+          <Container fluid className={styles["container"]}>
+            <Row className={styles["title"]}>
+              <p>Leaderboards</p>
+            </Row>
+            {localLeaderboardData.map(({ name }) => (
+              <Row className={styles["holding"]}>
+                <p>{name}</p>
+              </Row>
+            ))}
+          </Container>
+        </Col> */}
       </Row>
     </Container>
   );

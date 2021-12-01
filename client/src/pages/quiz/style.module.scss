@@ -6,26 +6,45 @@
   margin-top: -0.5rem;
 }
 
-.progress {
-  height: 2.5rem;
-  border-radius: 100rem;
-  margin: 0;
+.header {
+  display: flex;
+  align-items: center;
   margin-bottom: 1.5rem;
 
-  .outer {
-    background: #d8d8d8;
-    width: 100%;
-    height: 100%;
-    border-radius: 100rem;
-    padding: 0;
+  .correct {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      font-family: Work Sans;
+      font-weight: normal;
+      font-size: 20px;
+    }
   }
 
-  .inner {
-    background: #1b183f;
-    height: 100%;
+  .progress {
+    display: flex;
+    height: 2.5rem;
     border-radius: 100rem;
     margin: 0;
-    transition: 0.5s ease;
+
+    .outer {
+      background: #d8d8d8;
+      width: 100%;
+      height: 100%;
+      border-radius: 100rem;
+      padding: 0;
+    }
+
+    .inner {
+      background: #1b183f;
+      height: 100%;
+      border-radius: 100rem;
+      margin: 0;
+      transition: 0.5s ease;
+    }
   }
 }
 
@@ -92,6 +111,48 @@
       font-size: 20px;
       color: white;
       text-align: center;
+    }
+  }
+}
+
+.done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+
+  img {
+    width: 25vw;
+  }
+
+  .congrats {
+    margin-top: 1.5rem;
+    font-family: Work Sans;
+    font-weight: 300;
+    font-size: 36px;
+  }
+  .title {
+    font-family: Work Sans;
+    font-weight: 600;
+    font-size: 48px;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .button {
+    background: #c77dff;
+    border: none;
+    border-radius: 100px;
+    padding: 0.8rem 2em;
+    transition: 0.2s ease;
+    cursor: pointer;
+
+    font-family: Work Sans;
+    font-weight: 400;
+    font-size: 22px;
+
+    &:hover {
+      background: darken(#c77dff, 10%);
     }
   }
 }

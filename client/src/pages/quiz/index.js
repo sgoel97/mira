@@ -4,17 +4,21 @@ import Quizzes from "./data";
 
 import Header from "../../components/header";
 
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+
+import Medal from "./img/medal.png";
 
 import styles from "./style.module.scss";
 
 const Quiz = () => {
   const location = useLocation();
   const [active, updateActive] = useState(0);
+  const [correct, updateCorrect] = useState(0);
   const [error, setError] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -27,7 +31,7 @@ const Quiz = () => {
     if (selected !== null) {
       setRevealed(true);
       if (selected === quizData.questions[active].correct) {
-      } else {
+        updateCorrect(correct + 1);
       }
       setTimeout(() => {
         updateActive(active + 1);
@@ -40,8 +44,17 @@ const Quiz = () => {
     }
   };
 
+  const skip = () => {
+    updateActive(active + 1);
+    setSelected(null);
+    setError(false);
+    setRevealed(false);
+  };
+
   const choose = (i) => {
-    setSelected(i);
+    if (!revealed) {
+      setSelected(i);
+    }
   };
 
   const checkColor = (i) => {
@@ -77,7 +90,7 @@ const Quiz = () => {
         </Row>
       ))}
       <Row className={styles["buttons"]}>
-        <div onClick={nextQuestion} className={styles["button"]}>
+        <div onClick={skip} className={styles["button"]}>
           <p>Skip</p>
         </div>
         <div onClick={nextQuestion} className={styles["button"]}>
@@ -89,25 +102,43 @@ const Quiz = () => {
 
   const Completed = () => (
     <Row>
-      <Col>
-        <p>Done!</p>
+      <Col className={styles["done"]}>
+        <img src={Medal} alt="" />
+        <p className={styles["congrats"]}>
+          Score: {correct} / {quizData.questions.length}
+        </p>
+        <p className={styles["congrats"]}>Congratulations! You have mastered</p>
+        <p className={styles["title"]}>{quizData.title}</p>
+        <Link to="/learn">
+          <Button className={styles["button"]}>Take me back</Button>
+        </Link>
       </Col>
     </Row>
   );
 
   return (
-    <Container fluid style={{ border: "1px solid black" }}>
+    <Container fluid>
       <Header title={quizData.title} />
       <Row className={styles["subtitle"]}>
         <p>Learn</p>
       </Row>
-      <Row className={styles["progress"]}>
-        <div className={styles["outer"]}>
-          <div
-            className={styles["inner"]}
-            style={{ width: `${(active / quizData.questions.length) * 100}%` }}
-          ></div>
-        </div>
+      <Row className={styles["header"]}>
+        <Col xs={1} className={styles["correct"]}>
+          <p>Score:</p>
+          <p>
+            {correct} / {quizData.questions.length}
+          </p>
+        </Col>
+        <Col xs={11} className={styles["progress"]}>
+          <div className={styles["outer"]}>
+            <div
+              className={styles["inner"]}
+              style={{
+                width: `${(active / quizData.questions.length) * 100}%`,
+              }}
+            ></div>
+          </div>
+        </Col>
       </Row>
       {active < quizData.questions.length ? (
         <Question question={quizData.questions[active]} />

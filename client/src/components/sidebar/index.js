@@ -10,7 +10,6 @@ const Sidebar = () => {
   const location = useLocation();
 
   const routeCheck = (link) => {
-    console.log(link);
     if (location.pathname !== "/") {
       if (link === "/") {
         return false;

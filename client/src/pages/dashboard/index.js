@@ -12,7 +12,7 @@ import styles from "./style.module.scss";
 
 const Dashboard = () => {
   return (
-    <Container fluid style={{ border: "1px solid black" }}>
+    <Container fluid>
       <Header
         title="Welcome back, Lucas."
         subtitle="Your portfolio today is +1.43%"
