@@ -42,7 +42,7 @@ const Streaks = () => {
 
   const check = (param, index) => {
     console.log(param);
-    if (param) {
+    if (param && score !== 0) {
       return (
         <Col className={styles["check"]}>
           <img src={Checked} alt="checked" />
@@ -59,7 +59,12 @@ const Streaks = () => {
     }
   };
 
-  const score = userData.howToInvest + userData.financial;
+  const score =
+    userData.howToInvest +
+    userData.financial +
+    userData.ratios +
+    userData.company +
+    userData.investing;
 
   return (
     <Container fluid className={"content"}>

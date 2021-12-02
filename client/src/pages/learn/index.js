@@ -12,6 +12,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import PFP from "./img/pfp.svg";
+import Checked from "./img/checked.svg";
+import Unchecked from "./img/unchecked.svg";
 
 import styles from "./style.module.scss";
 
@@ -36,13 +38,65 @@ const Learn = () => {
     });
   }, [user]);
 
-  const localLeaderboardData = [
-    { name: "Jen Garcia", level: "15" },
-    { name: "Juan Rosales", level: "15" },
-    { name: "Ani Vangala", level: "15" },
+  let now = new Date();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
+  let day = days[now.getDay()];
 
-  const globalLeaderboardData = [];
+  const check = (param, index) => {
+    console.log(param);
+    if (param && score !== 0) {
+      return (
+        <Col className={styles["check"]}>
+          <img src={Checked} alt="checked" />
+          <p>{index}</p>
+        </Col>
+      );
+    } else {
+      return (
+        <Col className={styles["check"]}>
+          <img src={Unchecked} alt="unchecked" />
+          <p>{index}</p>
+        </Col>
+      );
+    }
+  };
+
+  const score =
+    userData.howToInvest +
+    userData.financial +
+    userData.ratios +
+    userData.company +
+    userData.investing;
+
+  const QuizzesComplete = () => (
+    <Container
+      fluid
+      className={styles["container"]}
+      style={{ border: "none", boxShadow: "none" }}
+    >
+      <Row className={styles["title"]}>
+        <p>Overall Progress</p>
+      </Row>
+      <div className={styles["streaks"]}>
+        <h6>Completed Quizzes</h6>
+        <div className={styles["checks"]} style={{ marginBottom: "2rem" }}>
+          {check(userData.howToInvest, 1)}
+          {check(userData.financial, 2)}
+          {check(userData.ratios, 3)}
+          {check(userData.company, 4)}
+          {check(userData.investing, 5)}
+        </div>
+      </div>
+    </Container>
+  );
 
   return (
     <Container fluid className="content">
@@ -94,16 +148,28 @@ const Learn = () => {
 
             <p>{name}</p>
           </div>
-          {/* <Container fluid className={styles["container"]}>
+          <QuizzesComplete />
+          <Container fluid className={styles["container"]}>
             <Row className={styles["title"]}>
-              <p>Leaderboards</p>
+              <p>Streaks</p>
             </Row>
-            {localLeaderboardData.map(({ name }) => (
-              <Row className={styles["holding"]}>
-                <p>{name}</p>
-              </Row>
-            ))}
-          </Container> */}
+            <div className={styles["streaks"]}>
+              <h6>Weekly Progress</h6>
+              <div className={styles["checks"]}>
+                {check(day === "Monday", "M")}
+                {check(day === "Tuesday", "Tu")}
+                {check(day === "Wednesday", "W")}
+                {check(day === "Thursday", "Th")}
+                {check(day === "Friday", "F")}
+                {check(day === "Saturday", "Sa")}
+                {check(day === "Sunday", "Su")}
+              </div>
+              <p className={styles["streak"]}>
+                {score === 0 ? userData.streak : userData.streak + 1} day streak
+              </p>
+            </div>
+          </Container>
+
           <Ad company="Robinhood" />
         </Col>
       </Row>

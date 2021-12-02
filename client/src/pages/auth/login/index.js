@@ -9,6 +9,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Form from "react-bootstrap/form";
 import Button from "react-bootstrap/button";
 
+import Graphic from "../vector.svg";
+
 import styles from "../style.module.scss";
 
 const Login = () => {
@@ -77,6 +79,7 @@ const Login = () => {
 
   return (
     <div className={styles["container"]}>
+      <img src={Graphic} className={styles["graphic"]} />
       <h1>Sign in</h1>
       <h6>Sign in to access your account.</h6>
       <Form className={styles["auth-form"]}>
@@ -128,6 +131,7 @@ const Login = () => {
             <p>Forgot Password?</p>
           </Link>
         </div> */}
+
         <div className={styles["row"]}>
           <p>
             Don't have an account?{" "}

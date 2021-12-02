@@ -1,0 +1,21 @@
+.block {
+  width: 100vw;
+  height: 7.1vh;
+  background: #ffffff;
+  position: absolute;
+  top: 12vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 5%;
+
+  p {
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    color: black;
+    margin-left: 1.5rem;
+    cursor: pointer;
+  }
+}

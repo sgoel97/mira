@@ -28,7 +28,7 @@ const Leaderboard = () => {
 
       const realData = [];
       keys.forEach((key) => realData.push(data[key]));
-      console.log(realData);
+      console.log(realData.sort((leader) => leader.gain));
       setLeaders(realData);
     });
   }, []);
@@ -38,7 +38,7 @@ const Leaderboard = () => {
       <Row className={styles["leaders"]}>
         <h1>Leaderboard</h1>
         {leaders
-          .sort((leader) => leader.gain)
+          .sort((leader1, leader2) => leader2.gain - leader1.gain)
           .slice(0, 3)
           .map(({ name, gain }) => (
             <Col className={styles["leader"]}>

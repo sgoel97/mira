@@ -10,6 +10,8 @@ import { getDatabase, ref, set } from "firebase/database";
 import Form from "react-bootstrap/form";
 import Button from "react-bootstrap/button";
 
+import Graphic from "../vector.svg";
+
 import styles from "../style.module.scss";
 
 const Register = () => {
@@ -97,6 +99,8 @@ const Register = () => {
 
   return (
     <div className={styles["container"]}>
+      {" "}
+      <img src={Graphic} className={styles["graphic"]} />
       <h1>Sign up</h1>
       <h6>Sign up for a Mira account.</h6>
       <Form className={styles["auth-form"]}>
