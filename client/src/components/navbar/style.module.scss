@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  height: 12vh;
+  width: 100vw;
+  background: #ffffff;
+  border-bottom: 5px solid #e2e2e8;
+  padding: 2vh 5%;
+}
+
+.links {
+  width: 70vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  img {
+    width: 2.5rem;
+    margin-right: 1rem;
+  }
+
+  h4 {
+    font-family: "Work Sans";
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: black;
+  }
+}
+
+.account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-link {
+  border-radius: 100px;
+  height: 80%;
+
+  .photo {
+    border-radius: 100px;
+    height: 100%;
+  }
+}

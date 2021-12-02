@@ -1,9 +1,13 @@
 .subtitle {
-  font-family: Work Sans;
-  font-weight: 300;
-  font-size: 40px;
+  text-align: center;
   margin-bottom: 2rem;
-  margin-top: -0.5rem;
+
+  h2 {
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 54px;
+  }
 }
 
 .header {
@@ -91,7 +95,7 @@
   display: flex;
   justify-content: space-between;
   margin: 0;
-  margin-top: 1.7rem;
+  margin-top: 2rem;
 
   .button {
     width: 20%;

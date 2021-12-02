@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Quizzes from "./data";
 
 import Header from "../../components/header";
+
+import { getDatabase, ref, set } from "firebase/database";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -22,6 +24,17 @@ const Quiz = () => {
   const [error, setError] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [selected, setSelected] = useState(null);
+
+  // useEffect(() => {
+  //   if (active === quizData.questions.length) {
+  //     const db = getDatabase();
+  //     set(ref(db, "users/" + userId), {
+  //       username: name,
+  //       email: email,
+  //       profile_picture: imageUrl,
+  //     });
+  //   }
+  // }, active);
 
   const quizData = Quizzes.filter(
     (quiz) => quiz.link === location.pathname.slice(7)
@@ -117,10 +130,9 @@ const Quiz = () => {
   );
 
   return (
-    <Container fluid>
-      <Header title={quizData.title} />
+    <Container fluid className="content">
       <Row className={styles["subtitle"]}>
-        <p>Learn</p>
+        <h2>{quizData.title}</h2>
       </Row>
       <Row className={styles["header"]}>
         <Col xs={1} className={styles["correct"]}>
@@ -145,6 +157,7 @@ const Quiz = () => {
       ) : (
         <Completed />
       )}
+      <div style={{ marginBottom: "4rem" }} />
     </Container>
   );
 };
