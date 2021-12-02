@@ -5,7 +5,7 @@ import Ad from "../../components/ad";
 
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -20,14 +20,21 @@ const Learn = () => {
   const [email, setEmail] = useState("");
   const [image, setImage] = useState(PFP);
   const [user, loading, error] = useAuthState(auth);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     setName(user.displayName);
     setEmail(user.email);
     setImage(user.photoURL);
-  }, []);
 
-  console.log(getDatabase());
+    const db = getDatabase();
+    const starCountRef = ref(db, "users/" + user.uid);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      setUserData(data);
+    });
+  }, [user]);
 
   const localLeaderboardData = [
     { name: "Jen Garcia", level: "15" },
@@ -48,28 +55,37 @@ const Learn = () => {
           <Row className={styles["level"]}>
             <p>Basics</p>
             <div className={styles["badges"]}>
-              <Badge title="How to Invest" />
+              <Badge
+                title="Introduction to Investing"
+                completed={userData.howToInvest}
+              />
             </div>
           </Row>
 
           <Row className={styles["level"]}>
             <p>Fundamentals I</p>
             <div className={styles["badges"]}>
-              <Badge title="Investing" />
-              <Badge title="Company" />
+              <Badge
+                title="Intro to Financial Statements"
+                completed={userData.financial}
+              />
+              <Badge
+                title="Introduction to Ratios"
+                completed={userData.ratios}
+              />
             </div>
           </Row>
 
           <Row className={styles["level"]}>
             <p>Fundamentals II</p>
             <div className={styles["badges"]}>
-              <Badge title="Financial" />
-              <Badge title="Ratios" />
+              <Badge title="Investing" completed={userData.investing} />
+              <Badge title="Company" completed={userData.company} />
             </div>
           </Row>
         </Col>
         <Col xs={4} className={styles["stats"]}>
-          <div>
+          <div className={styles["info"]}>
             {image ? (
               <img src={image} alt={name} />
             ) : (
@@ -78,7 +94,7 @@ const Learn = () => {
 
             <p>{name}</p>
           </div>
-          <Container fluid className={styles["container"]}>
+          {/* <Container fluid className={styles["container"]}>
             <Row className={styles["title"]}>
               <p>Leaderboards</p>
             </Row>
@@ -87,7 +103,7 @@ const Learn = () => {
                 <p>{name}</p>
               </Row>
             ))}
-          </Container>
+          </Container> */}
           <Ad company="Robinhood" />
         </Col>
       </Row>

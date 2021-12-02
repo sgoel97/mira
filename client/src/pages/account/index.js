@@ -5,6 +5,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import Button from "react-bootstrap/button";
 
+import styles from "./style.module.scss";
+
 const Account = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,10 +19,12 @@ const Account = () => {
 
   return (
     <div className="content">
-      <h1>Account</h1>
-      <p>Name: {name}</p>
-      <p>Email: {email}</p>
-      <Button onClick={logout}>Sign out</Button>
+      <h1 className={styles["header"]}>Account</h1>
+      <p className={styles["info"]}>Name: {name}</p>
+      <p className={styles["info"]}>Email: {email}</p>
+      <Button onClick={logout} className={styles["button"]}>
+        Sign out
+      </Button>
     </div>
   );
 };

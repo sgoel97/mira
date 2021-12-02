@@ -1,56 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { auth } from "../../firebase";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-import Person from "./img/person.png";
+import PFP from "./img/pfp.svg";
 
 import styles from "./style.module.scss";
 
 const Leaderboard = () => {
   const [time, setTime] = useState("Daily");
+  const [leaders, setLeaders] = useState([]);
 
   const buttons = ["Daily", "Weekly", "Monthly", "All Time"];
 
-  const leaders = [
-    { name: "test1", image: Person, gain: "9.42%" },
-    { name: "test2", image: Person, gain: "8.42%" },
-    { name: "test3", image: Person, gain: "7.42%" },
-    { name: "test4", image: Person, gain: "6.42%" },
-    { name: "test5", image: Person, gain: "5.42%" },
-    { name: "test6", image: Person, gain: "4.42%" },
-    { name: "test7", image: Person, gain: "3.42%" },
-  ];
+  useEffect(() => {
+    const db = getDatabase();
+    const starCountRef = ref(db, "users/");
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      const keys = Object.keys(data);
 
-  const top = leaders.sort((leader) => leader.gain).slice(0, 3);
+      const realData = [];
+      keys.forEach((key) => realData.push(data[key]));
+      console.log(realData);
+      setLeaders(realData);
+    });
+  }, []);
 
   return (
     <Container fluid>
       <Row className={styles["leaders"]}>
         <h1>Leaderboard</h1>
-        {top.map(({ name, image, gain }) => (
-          <Col className={styles["leader"]}>
-            <img src={image} alt={name} />
-            <p className={styles["name"]}>{name}</p>
-            <p className={styles["gain"]}>{gain}</p>
-          </Col>
-        ))}
+        {leaders
+          .sort((leader) => leader.gain)
+          .slice(0, 3)
+          .map(({ name, gain }) => (
+            <Col className={styles["leader"]}>
+              <img src={PFP} alt={name} />
+              <p className={styles["name"]}>{name}</p>
+              <p className={styles["gain"]}>{gain}%</p>
+            </Col>
+          ))}
       </Row>
 
       <div className="content">
         <Row className={styles["time-buttons"]}>
           {buttons.map((name) => (
-            <Button onClick={() => setTime(name)} className={styles["time"]}>
-              <h4>{name}</h4>
+            <Button
+              onClick={() => setTime(name)}
+              className={styles["time"]}
+              style={name === time ? { backgroundColor: "#FFBB2C" } : {}}
+            >
+              <h4 style={name === time ? { color: "black" } : {}}>{name}</h4>
             </Button>
           ))}
         </Row>
 
         <Row className={styles["headers"]}>
           <h4>Name</h4>
-          <h4>Amount Invested</h4>
           <h4>Gains</h4>
         </Row>
 
@@ -58,7 +71,21 @@ const Leaderboard = () => {
           <hr />
         </Row>
 
-        <Row></Row>
+        <Row>
+          {leaders
+            .sort((leader) => leader.gain)
+            .map(({ name, gain }) => (
+              <div className={styles["person"]}>
+                <div className={styles["info"]}>
+                  <img src={PFP} alt={name} />
+                  <p className={styles["name"]}>{name}</p>
+                </div>
+                <div className={styles["gain"]}>
+                  <p className={styles["gain"]}>{gain}%</p>
+                </div>
+              </div>
+            ))}
+        </Row>
       </div>
     </Container>
   );

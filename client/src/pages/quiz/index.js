@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import Quizzes from "./data";
 
-import Header from "../../components/header";
-
-import { getDatabase, ref, set } from "firebase/database";
+import { auth } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -24,17 +24,30 @@ const Quiz = () => {
   const [error, setError] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [user, loading] = useAuthState(auth);
 
-  // useEffect(() => {
-  //   if (active === quizData.questions.length) {
-  //     const db = getDatabase();
-  //     set(ref(db, "users/" + userId), {
-  //       username: name,
-  //       email: email,
-  //       profile_picture: imageUrl,
-  //     });
-  //   }
-  // }, active);
+  useEffect(() => {
+    if (
+      active === quizData.questions.length &&
+      correct >= quizData.questions.length - 1
+    ) {
+      console.log("check");
+      const db = getDatabase();
+
+      const starCountRef = ref(db, "users/" + user.uid);
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+
+        console.log(data);
+
+        const update = data;
+        update[quizData.db] = true;
+
+        console.log(update);
+        set(ref(db, "users/" + user.uid), update);
+      });
+    }
+  }, [active]);
 
   const quizData = Quizzes.filter(
     (quiz) => quiz.link === location.pathname.slice(7)
@@ -113,21 +126,45 @@ const Quiz = () => {
     </>
   );
 
-  const Completed = () => (
-    <Row>
-      <Col className={styles["done"]}>
-        <img src={Medal} alt="" />
-        <p className={styles["congrats"]}>
-          Score: {correct} / {quizData.questions.length}
-        </p>
-        <p className={styles["congrats"]}>Congratulations! You have mastered</p>
-        <p className={styles["title"]}>{quizData.title}</p>
-        <Link to="/learn">
-          <Button className={styles["button"]}>Take me back</Button>
-        </Link>
-      </Col>
-    </Row>
-  );
+  const Completed = () => {
+    if (correct >= quizData.questions.length - 1) {
+      return (
+        <Row>
+          <Col className={styles["done"]}>
+            <img src={Medal} alt="" />
+            <p className={styles["congrats"]}>
+              Score: {correct} / {quizData.questions.length}
+            </p>
+            <p className={styles["congrats"]}>
+              Congratulations! You have mastered
+            </p>
+            <p className={styles["title"]}>{quizData.title}</p>
+            <Link to="/learn">
+              <Button className={styles["button"]}>Take me back</Button>
+            </Link>
+          </Col>
+        </Row>
+      );
+    } else {
+      return (
+        <Row>
+          <Col className={styles["done"]}>
+            <p className={styles["congrats"]}>
+              Score: {correct} / {quizData.questions.length}
+            </p>
+            <p className={styles["congrats"]}>
+              Sorry! Unfortunatly, you must get {quizData.questions.length - 1}{" "}
+              questions correct to pass.
+            </p>
+            <p className={styles["title"]}></p>
+            <Link to="/learn">
+              <Button className={styles["button"]}>Take me back</Button>
+            </Link>
+          </Col>
+        </Row>
+      );
+    }
+  };
 
   return (
     <Container fluid className="content">

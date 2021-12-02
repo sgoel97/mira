@@ -80,8 +80,15 @@ const Register = () => {
 
       const db = getDatabase();
       set(ref(db, "users/" + uid), {
-        name: userCredentials.displayName,
+        name: name,
         email: email,
+        howToInvest: false,
+        financial: false,
+        ratios: false,
+        investing: false,
+        company: false,
+        streak: 0,
+        gain: 0,
       });
     } catch (err) {
       console.error(err);
@@ -137,9 +144,9 @@ const Register = () => {
           Register
         </Button>
 
-        <Button onClick={signInWithGoogle} className={styles["button"]}>
+        {/* <Button onClick={signInWithGoogle} className={styles["button"]}>
           Register with Google
-        </Button>
+        </Button> */}
 
         <div className={styles["row"]}>
           <p>

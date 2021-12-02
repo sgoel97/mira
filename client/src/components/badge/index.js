@@ -10,17 +10,21 @@ import Ratios from "./img/ratios.png";
 
 import styles from "./style.module.scss";
 
-const Badge = ({ title }) => {
+const Badge = ({ title, completed }) => {
   const data = [
     {
-      title: "How to Invest",
+      title: "Introduction to Investing",
       image: HowToInvest,
       link: "/learn/how-to-invest",
     },
     { title: "Investing", image: Investing, link: "/learn/investing" },
     { title: "Company", image: Company, link: "/learn/company" },
-    { title: "Financial", image: Financial, link: "/learn/financial" },
-    { title: "Ratios", image: Ratios, link: "/learn/ratios" },
+    {
+      title: "Intro to Financial Statements",
+      image: Financial,
+      link: "/learn/financial",
+    },
+    { title: "Introduction to Ratios", image: Ratios, link: "/learn/ratios" },
   ];
 
   const badge = data.filter((journey) => journey.title === title)[0];
@@ -28,8 +32,12 @@ const Badge = ({ title }) => {
   return (
     <Link to={badge.link} style={{ textDecoration: "none" }}>
       <div className={styles["badge"]}>
-        <img src={badge.image} alt={title} />
-        <p>{title}</p>
+        <div className={completed && styles["completed"]}>
+          <img src={badge.image} alt={title} />
+        </div>
+        <p>
+          {title} ({completed ? "complete" : "incomplete"})
+        </p>
       </div>
     </Link>
   );

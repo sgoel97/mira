@@ -11,7 +11,6 @@ import styles from "./style.module.scss";
 const Ad = ({ company }) => {
   const adData = data.filter((ad) => ad.name === company)[0];
 
-  console.log(adData);
 
   return (
     <Container fluid className={styles["container"]}>

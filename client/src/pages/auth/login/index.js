@@ -119,9 +119,9 @@ const Login = () => {
           </p>
         )}
 
-        <Button onClick={signInWithGoogle} className={styles["button"]}>
+        {/* <Button onClick={signInWithGoogle} className={styles["button"]}>
           Login with Google
-        </Button>
+        </Button> */}
 
         {/* <div className={styles["row"]}>
           <Link to="/reset" className={styles["link"]}>
